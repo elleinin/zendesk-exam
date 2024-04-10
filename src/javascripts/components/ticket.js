@@ -103,8 +103,7 @@ const TicketComponent = (props) => {
 }
 
 TicketComponent.propTypes = {
-    ticket: PropTypes.object,
-    key: PropTypes.number
+    ticket: PropTypes.object
 }
 
 export default TicketComponent

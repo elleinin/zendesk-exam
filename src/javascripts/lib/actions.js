@@ -2,15 +2,11 @@ const API_ENDPOINTS = {
     requests: '/api/v2/search.json'
   }
 
-//@param {String} user // user in for ticket out
-
 /**
- * Set params
+ * getTickets - get requester id from current ticket THEN calls and returns getTicketsbyRequester
  * @param {ZAFClient} client ZAFClient object
+ * @param {Boolean} isDefaultSort
  */
-
-
-//  getTickets - gets requester id from current ID, calls getTicketsByRequester, returns ordered & filtered tickets as object
 export async function getTickets(client, isDefaultSort) {
     const ticket = (await client.get('ticket')).ticket
     const requester = ticket.requester.id
@@ -21,7 +17,12 @@ export async function getTickets(client, isDefaultSort) {
 
     return tickets
 }
-
+/**
+ * getTicketsbyRequester - calls search api with requester and sort query parameters
+ * @param {ZAFClient} client ZAFClient object
+ * @param {Number} requester
+ * @param {Boolean} isDefaultSort
+ */
 async function getTicketsByRequester(client, requester, isDefaultSort) {
     const sortType = isDefaultSort?  'desc' : 'asc'
     const params = `?query=type:ticket+requester:${requester}&sort_by=created_at&sort_order=${sortType}`
