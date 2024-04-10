@@ -24,9 +24,9 @@ const ListComponent = (props) => {
 
     // Render TicketComponent for each ticket in ticketList
     const TicketList = () => {
-        // console.log(ticketList) // for testing only
+        console.log(ticketList) // for testing only
         return ticketList?.map((ticket, i) => {
-            return <TicketComponent ticket={ticket} key={i}/>;
+            return <TicketComponent ticket={ticket} client={props.client} key={i}/>;
         });
     };
     // Handler for Sort By toggle
