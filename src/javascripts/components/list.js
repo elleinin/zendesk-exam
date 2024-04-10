@@ -7,18 +7,24 @@ import React,
 } from "react";
 import PropTypes from "prop-types";
 import { ToggleButton } from '@zendeskgarden/react-buttons';
-import { getTickets } from '../lib/actions'
+import { getTickets, getAssignee } from '../lib/actions'
 import TicketComponent from "./ticket";
 
 const ListComponent = (props) => {
     const [ticketList, setTicketList] = useState([]); // store array of ticket objects
     const [isDefaultSort, setSortOrder] = useState(true)
+    const [assignee, setAssignee] = useState("")
 
     useEffect(() => {
         async function setTickets() {
             const tickets = (await getTickets(props.client, isDefaultSort)).results
             setTimeout(setTicketList(tickets), 1000)
         }
+        async function getAssigneeName() {
+            const user = await getAssignee(props.client)
+            setTimeout(setAssignee(user), 1000)
+        }
+        getAssigneeName()
         setTickets()
     }, [isDefaultSort]);
 
@@ -26,7 +32,7 @@ const ListComponent = (props) => {
     const TicketList = () => {
         console.log(ticketList) // for testing only
         return ticketList?.map((ticket, i) => {
-            return <TicketComponent ticket={ticket} client={props.client} key={i}/>;
+            return <TicketComponent ticket={ticket} client={props.client} assignee={assignee}key={i}/>;
         });
     };
     // Handler for Sort By toggle

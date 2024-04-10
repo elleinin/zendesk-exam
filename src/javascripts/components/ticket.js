@@ -6,7 +6,6 @@ import { Tooltip } from '@zendeskgarden/react-tooltips';
 import { DEFAULT_THEME, PALETTE } from '@zendeskgarden/react-theming'
 import PropTypes from "prop-types";
 import { formatDate } from '../lib/helpers'
-import { getAssignee } from '../lib/actions'
 
 import React,
 {
@@ -20,14 +19,10 @@ const TicketComponent = (props) => {
     const [assignee, setAssignee] = useState("")
 
     useEffect(() => {
-        async function getAssigneeName() {
-            const user = await getAssignee(props.client)
-            setTimeout(setAssignee(user), 1000)
-        }
-        getAssigneeName()
         setTicket(props.ticket)
+        setAssignee(props.assignee)
         // console.log(props.ticket); // for testing only
-    }, []);
+    });
 
     // Hover handlers
     const MouseOver = () => {
@@ -146,7 +141,8 @@ const TicketComponent = (props) => {
 
 TicketComponent.propTypes = {
     ticket: PropTypes.object,
-    client: PropTypes.any
+    client: PropTypes.any,
+    assignee: PropTypes.string
 }
 
 export default TicketComponent

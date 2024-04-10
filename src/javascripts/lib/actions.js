@@ -38,6 +38,6 @@ async function getTicketsByRequester(client, requester, isDefaultSort) {
  */
  export async function getAssignee(client) {
     const user = (await client.get('ticket')).ticket.assignee.user.name
-    console.log(user) // for testing only
+    // console.log(user) // for testing only
     return user
 }
