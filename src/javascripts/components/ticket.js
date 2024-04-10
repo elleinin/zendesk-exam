@@ -1,9 +1,12 @@
 // TICKET COMPONENT
 // Container that displays ticket properties
 import { Grid, Row, Col } from '@zendeskgarden/react-grid'
+import { Tag } from '@zendeskgarden/react-tags';
 import { Tooltip } from '@zendeskgarden/react-tooltips';
 import { DEFAULT_THEME, PALETTE } from '@zendeskgarden/react-theming'
 import PropTypes from "prop-types";
+import { formatDate } from '../lib/helpers'
+
 
 import React,
 {
@@ -20,11 +23,44 @@ const TicketComponent = (props) => {
         // console.log(props.ticket); // for testing only
     });
 
+    // Hover handlers
     const MouseOver = () => {
         setHover(true);
     }
     const MouseOut = () => {
         setHover(false);
+    }
+
+    // Priority Tagging
+    const prioTag = (priority) => {
+        let hue
+        let title
+        switch (priority) {
+            case "low":
+                hue = "blue";
+                title = "Low";
+                break;
+            case "normal":
+                hue = "green";
+                title = "Normal";
+                break;
+            case "high":
+                hue = "yellow";
+                title = "High";
+                break;
+            case "urgent":
+                hue = "red";
+                title = "Urgent";
+                break;
+            default:
+                hue = "grey";
+                title = "N/A";
+        }
+        return (
+            <Tag size="small" hue={hue} isPill >
+                <span>{title}</span>
+            </Tag>
+        )
     }
 
     // const redirect = (id) => {
@@ -73,20 +109,20 @@ const TicketComponent = (props) => {
                         <b>ID:</b> {ticket.id}
                         </Col>
                         <Col style={styles.ellipsis}>
-                        <b>Priority:</b> {ticket.priority}
+                        <b>Priority:</b> {prioTag(ticket.priority)}
                         </Col>
                     </Row>
                     <Row style={styles.padding}>
-                        <Col style={styles.ellipsis}>
+                        <Col style={isHover? {} : styles.ellipsis}>
                         <b>Subject:</b> {ticket.subject}
                         </Col>
                     </Row>
                     <Row style={styles.padding}>
                         <Col>
-                        <b>Requested:</b> {ticket.created_at}
+                        <b>Requested:</b> {formatDate(ticket.created_at, !isHover)}
                         </Col>
                         <Col>
-                        <b>Updated:</b> {ticket.updated_at}
+                        <b>Updated:</b> {formatDate(ticket.updated_at, !isHover)}
                         </Col>
                     </Row>
                     <Row style={styles.padding}>
