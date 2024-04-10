@@ -1,6 +1,3 @@
-// AXIOS REQUESTS
-// import axios from "axios";
-
 const API_ENDPOINTS = {
     requests: '/api/v2/search.json'
   }
@@ -20,8 +17,7 @@ export async function getTickets(client, isDefaultSort) {
     //console.log(requester)
 
     const tickets = await getTicketsByRequester(client, requester, isDefaultSort)
-
-    console.log(tickets)
+    //console.log(tickets)
 
     return tickets
 }

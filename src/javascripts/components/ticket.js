@@ -1,8 +1,9 @@
 // TICKET COMPONENT
-// How each ticket will appear in the sidebar
+// Container that displays ticket properties
 import { Grid, Row, Col } from '@zendeskgarden/react-grid'
 import { Tooltip } from '@zendeskgarden/react-tooltips';
 import { DEFAULT_THEME, PALETTE } from '@zendeskgarden/react-theming'
+import PropTypes from "prop-types";
 
 import React,
 {
@@ -11,12 +12,12 @@ import React,
 } from "react";
 
 const TicketComponent = (props) => {
-    const [ticket, setTicket] = useState({}); // store ticket object
+    const [ticket, setTicket] = useState({});
     const [isHover, setHover] = useState(false);
 
     useEffect(() => {
         setTicket(props.ticket)
-        // console.log(props.ticket);
+        // console.log(props.ticket); // for testing only
     });
 
     const MouseOver = () => {
@@ -26,10 +27,10 @@ const TicketComponent = (props) => {
         setHover(false);
     }
 
-    const redirect = (id) => {
-        const path = `/tickets/${id}`
-        //window only refers to sidebar app viewport -- not sure how to redirect page yet;
-    }
+    // const redirect = (id) => {
+    //     const path = `/tickets/${id}`
+    //     //window only refers to sidebar app viewport -- not sure how to redirect page yet;
+    // }
 
     const styles = {
         wrapper: {
@@ -63,7 +64,7 @@ const TicketComponent = (props) => {
         style={isHover? styles.hover : styles.wrapper} 
         onMouseOver={MouseOver}
         onMouseOut={MouseOut}
-        onClick={() => redirect(ticket.id)}
+        // onClick={() => redirect(ticket.id)}
         >
             <Tooltip placement="start-top" content="Click to view ticket page">
                 <Grid>
@@ -99,6 +100,11 @@ const TicketComponent = (props) => {
             </Tooltip>
         </div>
     )
+}
+
+TicketComponent.propTypes = {
+    ticket: PropTypes.object,
+    key: PropTypes.number
 }
 
 export default TicketComponent

@@ -1,9 +1,9 @@
 {
-  "name": "Example App",
+  "name": "Ticket Sidebar",
   "author": {
-    "name": "John Doe",
-    "email": "support@zendesk.com",
-    "url": "https://www.zendesk.com"
+    "name": "Ninielle Pascual",
+    "email": "ninielle.ap@gmail.com",
+    "url": "https://ninielle.zendesk.com"
   },
   "defaultLocale": "en",
   "private": true,
